@@ -3,7 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,18 +13,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.15.5
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -34,11 +28,11 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      # 关键修复点：使用正确的页面产物上传Action
+      # 关键修复：使用正确的Pages上传Action
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist  # 确保与你的构建输出目录一致
+          path: ./dist
 
   deploy:
     needs: build
