@@ -37,7 +37,7 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist # Astro 默认输出目录，如有更改请同步改这里
+          path: ./dist # 修改为你的 build 输出目录（Astro 默认是 dist）
 
   deploy:
     needs: build
