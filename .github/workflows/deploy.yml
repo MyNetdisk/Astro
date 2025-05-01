@@ -17,13 +17,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm # 关键修复点：添加 pnpm 版本指定
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # 或你项目使用的版本
+          cache: 'pnpm'
+
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8.15.4 # 或具体版本如 8.15.4
+          version: 8.15.4
 
-      - name: Install, build, and upload site
-        uses: withastro/action@v3
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Astro site
+        run: pnpm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./dist
 
   deploy:
     needs: build
