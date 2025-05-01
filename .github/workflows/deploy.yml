@@ -14,36 +14,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8.15.5  # 建议使用更新的稳定版本
-        run_install: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.5
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
-        cache: 'pnpm'
-        cache-dependency-path: 'pnpm-lock.yaml'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
-    - name: Install dependencies
-      run: |
-        pnpm install --frozen-lockfile
-        pnpm list --depth 0  # 显示已安装依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-    - name: Build project
-      run: pnpm run build  # 显式调用构建命令
-      env:
-        NODE_OPTIONS: '--max_old_space_size=4096'  # 防止内存不足
+      - name: Build project
+        run: pnpm run build
 
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: ./dist  # 确认与astro.config的输出目录一致
+      # 关键修复点：使用正确的 pages artifact 上传方式
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2  # 专门用于 Pages 的上传
+        with:
+          path: ./dist
 
   deploy:
     needs: build
