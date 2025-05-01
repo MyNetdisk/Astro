@@ -32,6 +32,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Debug working directory
+        run: |
+          echo "Current workspace: ${{ github.workspace }}"
+          ls -al ${{ github.workspace }}/dist
       - name: Push to target repo
         uses: peaceiris/actions-gh-pages@v3
         with:
