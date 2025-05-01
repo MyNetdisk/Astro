@@ -35,7 +35,7 @@ jobs:
           # 源目录（Astro默认输出目录）
           publish_dir: ./dist
           # 目标仓库配置
-          external_repository: MyNetdisk/MyNetdisk.github.io
+          external_repository: git@github.com:MyNetdisk/MyNetdisk.github.io.git
           # 目标分支（GitHub Pages默认分支）
           publish_branch: master
           # 保留提交历史（可选）
