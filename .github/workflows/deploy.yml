@@ -1,14 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # 每次推送到 `main` 分支时触发这个“工作流程”
-  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
   push:
     branches: [ main ]
-  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
   workflow_dispatch:
 
-# 允许 job 克隆 repo 并创建一个 page deployment
 permissions:
   contents: read
   pages: write
@@ -18,14 +14,74 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
+
+      # 新增 pnpm 安装步骤
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0  # 指定你的 pnpm 版本
+
+      # 新增 Node.js 环境配置
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'  # 添加 pnpm 缓存
+
+      - name: Install, build, and upload
         uses: withastro/action@v3
         with:
-          path: . # 存储库中 Astro 项目的根位置。（可选）
-          node-version: 20 # 用于构建站点的特定 Node.js 版本，默认为 20。（可选）
-          package-manager: pnpm@latest # 应使用哪个 Node.js 包管理器来安装依赖项和构建站点。会根据存储库中的 lockfile 自动检测。（可选）
+          path: .
+          package-manager: pnpm  # 这里只需要写包管理器名称，不需要带版本
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 新增 pnpm 安装步骤
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0  # 指定你的 pnpm 版本
+
+      # 新增 Node.js 环境配置
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'  # 添加 pnpm 缓存
+
+      - name: Install, build, and upload
+        uses: withastro/action@v3
+        with:
+          path: .
+          package-manager: pnpm  # 这里只需要写包管理器名称，不需要带版本
 
   deploy:
     needs: build
