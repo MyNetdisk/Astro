@@ -23,6 +23,11 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v3
 
+      - name: Show Build Output
+        run: |
+          ls -al dist/
+          du -sh dist/
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -33,10 +38,10 @@ jobs:
           # 使用个人访问令牌（PAT）推送
           personal_token: ${{ secrets.REPO_TOKEN }}
           # 源目录（Astro默认输出目录）
-          publish_dir: ./
+          publish_dir: ./dist
           # 目标仓库配置
           external_repository: MyNetdisk/MyNetdisk.github.io
           # 目标分支（GitHub Pages默认分支）
           publish_branch: master
           # 保留提交历史（可选）
-          force_orphan: true
+          force_orphan: false
