@@ -38,7 +38,7 @@ jobs:
           # 使用个人访问令牌（PAT）推送
           personal_token: ${{ secrets.REPO_TOKEN }}
           # 源目录（Astro默认输出目录）
-          publish_dir: ./dist
+          publish_dir: gh-pages
           # 目标仓库配置
           external_repository: MyNetdisk/MyNetdisk.github.io
           # 目标分支（GitHub Pages默认分支）
