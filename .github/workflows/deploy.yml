@@ -34,11 +34,11 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      # 关键修复点：使用正确的 pages artifact 上传方式
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2  # 专门用于 Pages 的上传
+      # 关键修复点：使用正确的页面产物上传Action
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist
+          path: ./dist  # 确保与你的构建输出目录一致
 
   deploy:
     needs: build
