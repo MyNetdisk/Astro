@@ -14,27 +14,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      # 新增 pnpm 安装步骤
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.9.0  # 指定你的 pnpm 版本
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8.15.5  # 建议使用更新的稳定版本
+        run_install: false
 
-      # 新增 Node.js 环境配置
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm'  # 添加 pnpm 缓存
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'pnpm'
+        cache-dependency-path: 'pnpm-lock.yaml'
 
-      - name: Install, build, and upload
-        uses: withastro/action@v3
-        with:
-          path: .
-          package-manager: pnpm  # 这里只需要写包管理器名称，不需要带版本
+    - name: Install dependencies
+      run: |
+        pnpm install --frozen-lockfile
+        pnpm list --depth 0  # 显示已安装依赖
+
+    - name: Build project
+      run: pnpm run build  # 显式调用构建命令
+      env:
+        NODE_OPTIONS: '--max_old_space_size=4096'  # 防止内存不足
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./dist  # 确认与astro.config的输出目录一致
 
   deploy:
     needs: build
