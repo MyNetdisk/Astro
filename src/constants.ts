@@ -65,8 +65,8 @@ export const SHARE_LINKS = [
 export const GISCUS: GiscusProps = {
   repo: "MyNetdisk/MyNetdisk.github.io",
   repoId: "MDEwOlJlcG9zaXRvcnkyNTM5NzE3OTE=",
-  category: "Comments",
-  categoryId: "DIC_kwDOAEXD4M4CQ5XK",
+  category: "General",
+  categoryId: "DIC_kwDODyNNT84CpunG",
   mapping: "pathname",
   reactionsEnabled: "0",
   emitMetadata: "0",
