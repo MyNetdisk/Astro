@@ -6,6 +6,7 @@ import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
 import IconPinterest from "@/assets/icons/IconPinterest.svg";
 import { SITE } from "@/config";
+import type { GiscusProps } from "@giscus/react";
 
 export const SOCIALS = [
   {
@@ -60,3 +61,16 @@ export const SHARE_LINKS = [
     icon: IconMail,
   },
 ] as const;
+
+export const GISCUS: GiscusProps = {
+  repo: "MyNetdisk/MyNetdisk.github.io",
+  repoId: "MDEwOlJlcG9zaXRvcnkyNTM5NzE3OTE=",
+  category: "[ENTER CATEGORY NAME HERE]",
+  categoryId: "[ENTER CATEGORY ID HERE]",
+  mapping: "pathname",
+  reactionsEnabled: "0",
+  emitMetadata: "0",
+  inputPosition: "bottom",
+  lang: "zh-CN",
+  loading: "lazy",
+};

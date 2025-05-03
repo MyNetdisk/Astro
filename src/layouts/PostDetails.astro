@@ -13,6 +13,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import Comments from "@/components/Comments";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -160,7 +161,11 @@ const nextPost =
         )
       }
     </div>
+
+    <!-- giscus评论组件 -->
+    <Comments client:only="react" />
   </main>
+  
   <Footer />
 </Layout>
 
