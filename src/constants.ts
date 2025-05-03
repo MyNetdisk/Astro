@@ -70,7 +70,7 @@ export const GISCUS: GiscusProps = {
   mapping: "pathname",
   reactionsEnabled: "0",
   emitMetadata: "0",
-  inputPosition: "bottom",
+  inputPosition: "top",
   lang: "zh-CN",
   loading: "lazy",
 };
