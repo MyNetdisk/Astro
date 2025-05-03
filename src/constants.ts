@@ -66,7 +66,7 @@ export const GISCUS: GiscusProps = {
   repo: "MyNetdisk/MyNetdisk.github.io",
   repoId: "MDEwOlJlcG9zaXRvcnkyNTM5NzE3OTE=",
   category: "astro",
-  categoryId: "123456",
+  categoryId: "astro",
   mapping: "pathname",
   reactionsEnabled: "0",
   emitMetadata: "0",
