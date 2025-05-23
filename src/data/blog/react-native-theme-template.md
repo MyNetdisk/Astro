@@ -1,19 +1,17 @@
 ---
 author: Axton
-pubDatetime: 2025-05-21T15:22:00Z
-modDatetime: 2025-05-21T15:22:00Z
+pubDatetime: 2025-05-20T15:22:00Z
+modDatetime: 2025-05-20T15:22:00Z
 title: React Native 语义化主题系统模板
 featured: false
 draft: false
 tags:
   - React Native
 description:
-   这里是一个完整的 React Native 语义化主题系统模板，适用于支持多主题（如 light、dark、blue）的大型项目结构。
+  这里是一个完整的 React Native 语义化主题系统模板，适用于支持多主题（如 light、dark、blue）的大型项目结构。
 ---
 
-这里是一个完整的 React Native 语义化主题系统模板，适用于支持多主题（如 light、dark、blue）的大型项目结构。
-
----
+## Table of contents
 
 ## 📁 目录结构
 
