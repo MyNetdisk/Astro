@@ -5,7 +5,9 @@
   "packageManager": "pnpm@8.15.4",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
+    "build": "astro check && astro build",
+    "postbuild": "npm run pagefind",
+    "pagefind": "if [ -d 'dist' ] && [ \"$(find dist -name '*.html' | wc -l)\" -gt 0 ]; then pagefind --site dist && cp -r dist/pagefind public/; else echo 'No HTML files found, skipping Pagefind'; fi",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",

@@ -34,8 +34,4 @@ export default defineConfig({
     // Used for all `<Image />` and `<Picture />` components unless overridden with a prop
     experimentalLayout: "constrained",
   },
-  experimental: {
-    responsiveImages: true,
-    preserveScriptOrder: true,
-  },
 });

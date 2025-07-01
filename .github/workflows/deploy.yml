@@ -9,39 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build Astro site
-        run: pnpm run build || (echo "Build failed, checking what was created" && ls -la dist/ && exit 1)
-
-      - name: Check build output
-        run: |
-          echo "Checking dist directory:"
-          ls -la dist/ || echo "dist directory not found"
-          echo "HTML files found:"
-          find dist -name "*.html" | wc -l || echo "No HTML files"
-
-      - name: Run Pagefind (optional)
-        run: |
-          if [ -d "dist" ] && [ "$(find dist -name '*.html' | wc -l)" -gt 0 ]; then
-            echo "Running Pagefind..."
-            pagefind --site dist
-            cp -r dist/pagefind public/ || echo "Failed to copy pagefind to public"
-          else
-            echo "Skipping Pagefind - no HTML files found"
-          fi
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
 
       - name: Upload dist/ as artifact
         uses: actions/upload-artifact@v4
