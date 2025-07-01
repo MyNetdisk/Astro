@@ -9,73 +9,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Check Astro config
-        run: |
-          echo "=== Checking astro.config file ==="
-          if [ -f "astro.config.mjs" ]; then
-            cat astro.config.mjs
-          elif [ -f "astro.config.js" ]; then
-            cat astro.config.js
-          else
-            echo "No astro config file found"
-          fi
-
-      - name: Build Astro site
-        run: |
-          echo "=== Running Astro build ==="
-          pnpm run build
-        continue-on-error: true
-
-      - name: Debug build output
-        run: |
-          echo "=== Checking build output ==="
-          ls -la
-          echo "=== Checking dist directory ==="
-          if [ -d "dist" ]; then
-            ls -la dist/
-            echo "=== HTML files in dist ==="
-            find dist -name "*.html" | head -10
-            echo "Total HTML files: $(find dist -name '*.html' | wc -l)"
-          else
-            echo "dist directory not found"
-          fi
-
-      - name: Manual Astro build (if previous failed)
-        if: failure()
-        run: |
-          echo "=== Attempting manual build ==="
-          # 先尝试只运行 astro build，跳过其他步骤
-          npx astro build
-          echo "=== Checking manual build output ==="
-          ls -la dist/ || echo "No dist directory"
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
 
       - name: Upload dist/ as artifact
         uses: actions/upload-artifact@v4
         with:
           name: astro-dist
           path: dist
-        if: always()
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: always() && needs.build.result == 'success'
     steps:
       - name: Checkout (dummy, required by gh-pages action)
         uses: actions/checkout@v4
@@ -86,12 +31,8 @@ jobs:
           name: astro-dist
           path: dist
 
-      - name: Verify downloaded files
-        run: |
-          echo "=== Downloaded files ==="
-          ls -R dist
-          echo "=== HTML files count ==="
-          find dist -name "*.html" | wc -l
+      - name: Show downloaded files
+        run: ls -R dist
 
       - name: Deploy to GitHub Pages repo
         uses: peaceiris/actions-gh-pages@v3
