@@ -45,7 +45,7 @@ buildscript {
 
 }
 ```
-在`build.gradle`中确保进行下面的配置
+在`android/app/build.gradle`中确保进行下面的配置
 ```
 android {
     ...
