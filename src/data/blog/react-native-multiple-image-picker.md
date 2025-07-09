@@ -30,6 +30,11 @@ description:
 
 ### ✅ 解决方案（逐步）：
 
+### 注意
+```bash
+react-native-nitro-modules: "^0.25.2" # 测试过删掉cmake 3.22.1,结果会报错，貌似react-native-nitro-modules依赖cmake 3.22.1
+```
+
 ### 检查 NDK 和 CMake 版本
 在 `android/build.gradle` 中确保使用正确的版本：
 ```gradle
