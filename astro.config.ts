@@ -19,6 +19,7 @@ export default defineConfig({
     remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
+      langs: ['dockerfile', 'groovy'], // gradle 用 groovy 语法高亮
       themes: { light: "min-light", dark: "night-owl" },
       wrap: true,
     },
