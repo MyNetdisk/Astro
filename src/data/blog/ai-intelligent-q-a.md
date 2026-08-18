@@ -1,3 +1,17 @@
+---
+author: Axton
+pubDatetime: 2026-08-18T15:22:00Z
+modDatetime: 2026-03-18T15:22:00Z
+title: AI 智能问答功能 — 从零到一实现指南
+featured: false
+draft: false
+tags:
+  - docs
+description:
+  下面是根据当前项目代码整理的完整实现文档。你截图里的 EventStream 就是 **SSE（Server-Sent Events）** 流式响应；项目里核心逻辑在 `BConversation.vue`，打字机在 `BMarkdown.vue`，建议在 `BSuggestion.vue`。
+---
+
+
 下面是根据当前项目代码整理的完整实现文档。你截图里的 EventStream 就是 **SSE（Server-Sent Events）** 流式响应；项目里核心逻辑在 `BConversation.vue`，打字机在 `BMarkdown.vue`，建议在 `BSuggestion.vue`。
 
 ---
